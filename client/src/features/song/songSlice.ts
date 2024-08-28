@@ -34,14 +34,14 @@ const songSlice = createSlice({
     },
     updateSong: (state, action: PayloadAction<Song>) => {
       const index = state.songs.findIndex(
-        (song) => song.id === action.payload.id
+        (song) => song._id === action.payload._id
       );
       if (index !== -1) {
         state.songs[index] = action.payload;
       }
     },
     deleteSong: (state, action: PayloadAction<string>) => {
-      state.songs = state.songs.filter((song) => song.id !== action.payload);
+      state.songs = state.songs.filter((song) => song._id !== action.payload);
     },
   },
 });

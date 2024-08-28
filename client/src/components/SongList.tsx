@@ -1,9 +1,13 @@
-// src/components/SongList.tsx
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSongsRequest, deleteSong } from "../features/song/songSlice";
+import {
+  fetchSongsRequest,
+  deleteSong,
+  updateSong,
+} from "../features/song/songSlice";
 import { RootState } from "../store/store";
 import { Song } from "../types/song";
+import EditForm from "./EditForm";
 
 const SongList = () => {
   const dispatch = useDispatch();
@@ -11,12 +15,25 @@ const SongList = () => {
   const loading = useSelector((state: RootState) => state.songs.loading);
   const error = useSelector((state: RootState) => state.songs.error);
 
+  const [editingSong, setEditingSong] = useState<Song | null>(null);
+
   useEffect(() => {
     dispatch(fetchSongsRequest());
   }, [dispatch]);
 
   const handleDelete = (id: string) => {
-    dispatch(deleteSong(id));
+    if (id) {
+      dispatch(deleteSong(id));
+    }
+  };
+
+  const handleEdit = (song: Song) => {
+    setEditingSong(song);
+  };
+
+  const handleUpdate = (updatedSong: Song) => {
+    dispatch(updateSong(updatedSong));
+    setEditingSong(null); // Close the edit form
   };
 
   if (loading) return <p>Loading...</p>;
@@ -34,78 +51,21 @@ const SongList = () => {
               <strong>{song.title}</strong> by {song.artist} ({song.genre})
               <button
                 onClick={() => {
-                  if (song._id) {
-                    handleDelete(song._id);
-                  } else {
-                    console.error("Song ID is missing");
-                  }
+                  song._id
+                    ? handleDelete(song._id)
+                    : console.error("Song ID is missing");
                 }}
               >
                 Delete
               </button>
-              {/* Implement the edit button later */}
-              <button>Edit</button>
+              <button onClick={() => handleEdit(song)}>Edit</button>
             </li>
           ))}
         </ul>
       )}
+      {editingSong && <EditForm song={editingSong} onUpdate={handleUpdate} />}
     </div>
   );
 };
 
 export default SongList;
-
-// import React, { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { fetchSongsRequest, deleteSong } from "../features/song/songSlice";
-// import { RootState } from "../store/store";
-// import { Song } from "../types/song";
-
-// const SongList = () => {
-//   const dispatch = useDispatch();
-//   const songs = useSelector((state: RootState) => state.songs.songs);
-//   const loading = useSelector((state: RootState) => state.songs.loading);
-//   const error = useSelector((state: RootState) => state.songs.error);
-
-//   useEffect(() => {
-//     dispatch(fetchSongsRequest());
-//   }, [dispatch]);
-
-//   const handleDelete = (id: string) => {
-//     dispatch(deleteSong(id));
-//     console.log("Song deleted", id);
-//   };
-
-//   if (loading) return <p>Loading...</p>;
-//   if (error) return <p>Error: {error}</p>;
-
-//   return (
-//     <div>
-//       <h2>Song List</h2>
-//       {songs.length === 0 ? (
-//         <p>No songs available.</p>
-//       ) : (
-//         <ul>
-//           {songs.map((song: Song) => (
-//             <li key={song.id}>
-//               <strong>{song.title}</strong> by {song.artist} ({song.genre})
-//               <button
-//                 onClick={() => {
-//                   song.id
-//                     ? handleDelete(song.id)
-//                     : console.error("Song ID is missing");
-//                 }}
-//               >
-//                 Delete
-//               </button>
-//               {/* Implement the edit button later */}
-//               <button>Edit</button>
-//             </li>
-//           ))}
-//         </ul>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default SongList;
