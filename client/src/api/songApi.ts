@@ -13,7 +13,7 @@ export const createSong = async (song: Song) => {
 };
 
 export const editSong = async (song: Song) => {
-  await axios.put(`${API_URL}/${song.id}`, song);
+  await axios.put(`${API_URL}/${song._id}`, song);
 };
 
 export const removeSong = async (id: string) => {

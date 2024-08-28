@@ -4,7 +4,6 @@ import rootReducer from "../features";
 import rootSaga from "./saga";
 
 const sagaMiddleware = createSagaMiddleware();
-
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
