@@ -1,0 +1,28 @@
+Initialize a Vite Project in the Current Folder
+Run the command below in your terminal while inside the desired folder:
+
+bash
+Copy code
+npm create vite@latest . -- --template react
+2. Install Dependencies
+Navigate to the current folder and install all required dependencies:
+
+bash
+Copy code
+npm install
+3. Run the Development Server
+Once everything is set up, you can start the development server with:
+
+bash
+Copy code
+npm run dev
+Explanation:
+npm create vite@latest . initializes a Vite project in the current folder (. represents the current directory).
+The --template react option sets up the project with React as the template.
+With this setup, the name of the project will match the name of the current folder.
+
+
+
+
+
+
