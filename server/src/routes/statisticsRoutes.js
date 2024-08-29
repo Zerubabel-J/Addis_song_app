@@ -9,13 +9,13 @@ router.get("/statistics", async (req, res) => {
     const totalSongs = await Song.countDocuments();
 
     // Total number of artists
-    const totalArtists = await Song.distinct("artist").countDocuments();
+    const totalArtists = (await Song.distinct("artist")).length;
 
     // Total number of albums
-    const totalAlbums = await Song.distinct("album").countDocuments();
+    const totalAlbums = (await Song.distinct("album")).length;
 
     // Total number of genres
-    const totalGenres = await Song.distinct("genre").countDocuments();
+    const totalGenres = (await Song.distinct("genre")).length;
 
     // Number of songs per genre
     const songsPerGenre = await Song.aggregate([

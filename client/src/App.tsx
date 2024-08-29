@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import store from "./store/store"; // Import the Redux store
 import SongForm from "./components/SongForm"; // Import the SongForm component
 import SongList from "./components/SongList";
+import Statistics from "./components/Statistics";
 
 const App: React.FC = () => {
   return (
@@ -11,7 +12,7 @@ const App: React.FC = () => {
         <h1>Music App</h1>
         <SongForm />
         <SongList />
-        {/* Here, you can also add a list of songs and buttons for update/delete functionalities */}
+        <Statistics />
       </div>
     </Provider>
   );
