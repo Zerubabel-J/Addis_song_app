@@ -1,4 +1,3 @@
-// src/components/Statistics.tsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Bar, Pie } from "react-chartjs-2";

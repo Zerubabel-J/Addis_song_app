@@ -1,19 +1,45 @@
 import React from "react";
-import { Provider } from "react-redux";
-import store from "./store/store"; // Import the Redux store
-import SongForm from "./components/SongForm"; // Import the SongForm component
-import SongList from "./components/SongList";
-import Statistics from "./components/Statistics";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-const App: React.FC = () => {
+import { Provider } from "react-redux";
+import { ThemeProvider } from "@emotion/react";
+import store from "./store/store";
+import Statistics from "./components/Statistics";
+import theme from "./theme";
+import Header from "./components/Header";
+import Songs from "./pages/songs";
+
+const App = () => {
   return (
     <Provider store={store}>
-      <div>
-        <h1>Music App</h1>
-        <SongForm />
-        <SongList />
-        <Statistics />
-      </div>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <div
+            style={{
+              padding: theme.spacing.large,
+              backgroundColor: theme.colors.background,
+            }}
+          >
+            <Header />
+            <Routes>
+              <Route path="/" element={<Songs />} />
+              <Route path="/statistics" element={<Statistics />} />
+            </Routes>
+          </div>
+        </Router>
+
+        {/* <div
+          style={{
+            padding: theme.spacing.large,
+            backgroundColor: theme.colors.background,
+          }}
+        >
+          <h1 style={{ color: theme.colors.primary }}>Music App</h1>
+          <SongForm />
+          <SongList />
+          <Statistics />
+        </div> */}
+      </ThemeProvider>
     </Provider>
   );
 };

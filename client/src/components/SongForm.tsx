@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import styled from "@emotion/styled";
 import { useDispatch } from "react-redux";
 import { addSong } from "../features/song/songSlice";
 import { Song } from "../types/song"; // Import the updated Song interface
@@ -12,6 +13,33 @@ const schema = z.object({
   album: z.string().optional(),
   genre: z.string().min(1, { message: "Genre is required" }),
 });
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.medium};
+  margin-bottom: ${({ theme }) => theme.spacing.large};
+`;
+
+const Input = styled.input`
+  padding: ${({ theme }) => theme.spacing.small};
+  border: 1px solid ${({ theme }) => theme.colors.muted};
+  border-radius: ${({ theme }) => theme.borders.radius};
+`;
+
+const Button = styled.button`
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  border: none;
+  padding: ${({ theme }) => theme.spacing.small}
+    ${({ theme }) => theme.spacing.medium};
+  border-radius: ${({ theme }) => theme.borders.radius};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.muted};
+  }
+`;
 
 const SongForm = () => {
   const {
@@ -29,16 +57,16 @@ const SongForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("title")} placeholder="Title" />
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <Input {...register("title")} placeholder="Title" />
       {errors.title && <p>{errors.title.message}</p>}
-      <input {...register("artist")} placeholder="Artist" />
+      <Input {...register("artist")} placeholder="Artist" />
       {errors.artist && <p>{errors.artist.message}</p>}
-      <input {...register("album")} placeholder="Album" />
-      <input {...register("genre")} placeholder="Genre" />
+      <Input {...register("album")} placeholder="Album" />
+      <Input {...register("genre")} placeholder="Genre" />
       {errors.genre && <p>{errors.genre.message}</p>}
-      <button type="submit">Add Song</button>
-    </form>
+      <Button type="submit">Add Song</Button>
+    </Form>
   );
 };
 

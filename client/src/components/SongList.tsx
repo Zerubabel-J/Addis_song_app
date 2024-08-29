@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -36,29 +37,66 @@ const SongList = () => {
     setEditingSong(null); // Close the edit form
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
-
   return (
-    <div>
-      <h2>Song List</h2>
-      {songs.length === 0 ? (
+    <div
+      css={{ padding: "20px", backgroundColor: "#f9f9f9", borderRadius: "8px" }}
+    >
+      <h2 css={{ color: "#3498db" }}>Song List</h2>
+      {loading ? (
+        <p css={{ color: "#e74c3c" }}>Loading...</p>
+      ) : error ? (
+        <p css={{ color: "#e74c3c" }}>Error: {error}</p>
+      ) : songs.length === 0 ? (
         <p>No songs available.</p>
       ) : (
-        <ul>
+        <ul css={{ listStyleType: "none", padding: 0 }}>
           {songs.map((song: Song) => (
-            <li key={song._id}>
-              <strong>{song.title}</strong> by {song.artist} ({song.genre})
-              <button
-                onClick={() => {
-                  song._id
-                    ? handleDelete(song._id)
-                    : console.error("Song ID is missing");
-                }}
-              >
-                Delete
-              </button>
-              <button onClick={() => handleEdit(song)}>Edit</button>
+            <li
+              key={song._id}
+              css={{
+                backgroundColor: "#fff",
+                padding: "10px",
+                borderRadius: "8px",
+                marginBottom: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div>
+                <strong>{song.title}</strong> by {song.artist} ({song.genre})
+              </div>
+              <div>
+                <button
+                  onClick={() => handleDelete(song._id ?? "")}
+                  css={{
+                    marginRight: "8px",
+                    backgroundColor: "#e74c3c",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "4px",
+                    padding: "5px 10px",
+                    cursor: "pointer",
+                  }}
+                  aria-label={`Delete ${song.title}`}
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={() => handleEdit(song)}
+                  css={{
+                    backgroundColor: "#3498db",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "4px",
+                    padding: "5px 10px",
+                    cursor: "pointer",
+                  }}
+                  aria-label={`Edit ${song.title}`}
+                >
+                  Edit
+                </button>
+              </div>
             </li>
           ))}
         </ul>
