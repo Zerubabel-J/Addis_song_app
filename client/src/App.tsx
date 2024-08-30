@@ -8,6 +8,7 @@ import Statistics from "./components/Statistics";
 import theme from "./theme";
 import Header from "./components/Header";
 import Songs from "./pages/songs";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
               <Route path="/" element={<Songs />} />
               <Route path="/statistics" element={<Statistics />} />
             </Routes>
+            <Footer />
           </div>
         </Router>
       </ThemeProvider>
