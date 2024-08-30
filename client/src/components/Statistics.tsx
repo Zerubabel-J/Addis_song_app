@@ -8,9 +8,102 @@ import {
   CategoryScale,
   LinearScale,
 } from "chart.js";
+import styled from "@emotion/styled";
 
 // Register necessary chart components
 Chart.register(ArcElement, BarElement, CategoryScale, LinearScale);
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+`;
+
+const SummaryContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const Summary = styled.div`
+  flex: 1 1 50%;
+  margin-top: 75px;
+  max-width: 500px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #fafafa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333;
+  }
+
+  p {
+    font-size: 21px;
+    margin: 8px 0;
+    color: #555;
+  }
+
+  @media (max-width: 768px) {
+    text-align: center;
+  }
+`;
+
+const PieChartWrapper = styled.div`
+  flex: 1 1 50%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h3 {
+    margin-bottom: 16px;
+    font-size: 22px;
+    color: #333;
+  }
+
+  canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: none;
+  }
+`;
+
+const ChartsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const ChartWrapper = styled.div`
+  flex: 1 1 calc(50% - 24px);
+  max-width: 600px;
+  min-width: 300px;
+
+  canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+`;
 
 const Statistics = () => {
   const [statistics, setStatistics] = useState<any>(null);
@@ -47,7 +140,6 @@ const Statistics = () => {
     songsPerAlbum,
   } = statistics;
 
-  // Prepare data for the charts
   const songsPerGenreData = {
     labels: songsPerGenre.map((genre: any) => genre._id),
     datasets: [
@@ -98,24 +190,31 @@ const Statistics = () => {
   };
 
   return (
-    <div>
-      <h2>Statistics</h2>
-      <p>Total Songs: {totalSongs}</p>
-      <p>Total Artists: {totalArtists}</p>
-      <p>Total Albums: {totalAlbums}</p>
-      <p>Total Genres: {totalGenres}</p>
-
-      <div style={{ width: "50%", margin: "0 auto" }}>
-        <h3>Songs per Genre</h3>
-        <Pie data={songsPerGenreData} />
-
-        <h3>Songs per Album</h3>
-        <Bar data={songsPerAlbumData} />
-
-        <h3>Songs and Albums per Artist</h3>
-        <Bar data={artistData} />
-      </div>
-    </div>
+    <Container>
+      <SummaryContainer>
+        <Summary>
+          <h2>Statistics</h2>
+          <p>Total Songs: {totalSongs}</p>
+          <p>Total Artists: {totalArtists}</p>
+          <p>Total Albums: {totalAlbums}</p>
+          <p>Total Genres: {totalGenres}</p>
+        </Summary>
+        <PieChartWrapper>
+          <h3>Songs per Genre</h3>
+          <Pie data={songsPerGenreData} />
+        </PieChartWrapper>
+      </SummaryContainer>
+      <ChartsContainer>
+        <ChartWrapper>
+          <h3>Songs per Album</h3>
+          <Bar data={songsPerAlbumData} />
+        </ChartWrapper>
+        <ChartWrapper>
+          <h3>Songs and Albums per Artist</h3>
+          <Bar data={artistData} />
+        </ChartWrapper>
+      </ChartsContainer>
+    </Container>
   );
 };
 
