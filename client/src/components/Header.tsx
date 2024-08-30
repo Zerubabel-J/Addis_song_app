@@ -1,52 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styled from "@emotion/styled";
-import { useTheme } from "@emotion/react";
-
-const Nav = styled.nav`
-  margin-bottom: ${({ theme }) => theme.spacing.large};
-`;
-
-const NavList = styled.ul`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.medium};
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const NavItem = styled.li``;
-
-const NavLink = styled(Link)`
-  color: ${({ theme }) => theme.colors.primary};
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
+import "../styles/Header.css"; // Import the CSS file
 
 const Header = () => {
-  const theme = useTheme();
-
   return (
-    <header
-      style={{
-        padding: theme.spacing.large,
-        backgroundColor: theme.colors.background,
-      }}
-    >
-      <h1 style={{ color: theme.colors.primary }}>Music App</h1>
-      <Nav>
-        <NavList>
-          <NavItem>
-            <NavLink to="/">Songs</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink to="/statistics">Statistics</NavLink>
-          </NavItem>
-        </NavList>
-      </Nav>
+    <header className="header">
+      <h1 className="header__title">Music App</h1>
+      <nav className="header__nav">
+        <ul className="header__nav-list">
+          <li className="header__nav-item">
+            <Link to="/" className="header__nav-link">
+              Songs
+            </Link>
+          </li>
+          <li className="header__nav-item">
+            <Link to="/statistics" className="header__nav-link">
+              Statistics
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 };

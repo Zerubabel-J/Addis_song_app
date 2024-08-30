@@ -5,18 +5,17 @@ declare module "@emotion/react" {
   export interface Theme {
     colors: {
       primary: string;
-      background: string;
       secondary: string;
-
+      background: string;
       text: string;
       muted: string;
     };
-    spacing: {
+    fontSizes: {
       small: string;
       medium: string;
       large: string;
     };
-    fontSizes: {
+    spacing: {
       small: string;
       medium: string;
       large: string;

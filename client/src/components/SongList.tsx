@@ -9,6 +9,69 @@ import {
 import { RootState } from "../store/store";
 import { Song } from "../types/song";
 import EditForm from "./EditForm";
+import styled from "@emotion/styled";
+
+const Container = styled.div`
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const Heading = styled.h2`
+  color: #3498db;
+  text-align: center;
+  margin-bottom: 20px;
+`;
+
+const SongListContainer = styled.ul`
+  list-style-type: none;
+  padding: 0;
+`;
+
+const SongItem = styled.li`
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: #f1f1f1;
+  }
+`;
+
+const SongInfo = styled.div`
+  font-size: 16px;
+  strong {
+    font-weight: 600;
+    color: #2c3e50;
+  }
+`;
+
+type ButtonProps = {
+  variant?: "delete" | "edit";
+};
+
+const Button = styled.button<ButtonProps>`
+  background-color: ${({ variant }) =>
+    variant === "delete" ? "#e74c3c" : "#3498db"};
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 14px;
+
+  &:hover {
+    background-color: ${({ variant }) =>
+      variant === "delete" ? "#c0392b" : "#2980b9"};
+  }
+`;
 
 const SongList = () => {
   const dispatch = useDispatch();
@@ -16,7 +79,7 @@ const SongList = () => {
   const loading = useSelector((state: RootState) => state.songs.loading);
   const error = useSelector((state: RootState) => state.songs.error);
 
-  const [editingSong, setEditingSong] = useState<Song | null>(null);
+  const [editingSongId, setEditingSongId] = useState<string | null>(null);
 
   useEffect(() => {
     dispatch(fetchSongsRequest());
@@ -29,80 +92,58 @@ const SongList = () => {
   };
 
   const handleEdit = (song: Song) => {
-    setEditingSong(song);
+    setEditingSongId(song._id);
   };
 
   const handleUpdate = (updatedSong: Song) => {
     dispatch(updateSong(updatedSong));
-    setEditingSong(null); // Close the edit form
+    setEditingSongId(null); // Close the edit form after update
   };
 
   return (
-    <div
-      css={{ padding: "20px", backgroundColor: "#f9f9f9", borderRadius: "8px" }}
-    >
-      <h2 css={{ color: "#3498db" }}>Song List</h2>
+    <Container>
+      <Heading>Song List</Heading>
       {loading ? (
-        <p css={{ color: "#e74c3c" }}>Loading...</p>
+        <p css={{ color: "#e74c3c", textAlign: "center" }}>Loading...</p>
       ) : error ? (
-        <p css={{ color: "#e74c3c" }}>Error: {error}</p>
+        <p css={{ color: "#e74c3c", textAlign: "center" }}>Error: {error}</p>
       ) : songs.length === 0 ? (
-        <p>No songs available.</p>
+        <p css={{ textAlign: "center" }}>No songs available.</p>
       ) : (
-        <ul css={{ listStyleType: "none", padding: 0 }}>
+        <SongListContainer>
           {songs.map((song: Song) => (
-            <li
-              key={song._id}
-              css={{
-                backgroundColor: "#fff",
-                padding: "10px",
-                borderRadius: "8px",
-                marginBottom: "10px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <div>
-                <strong>{song.title}</strong> by {song.artist} ({song.genre})
-              </div>
-              <div>
-                <button
-                  onClick={() => handleDelete(song._id ?? "")}
-                  css={{
-                    marginRight: "8px",
-                    backgroundColor: "#e74c3c",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "4px",
-                    padding: "5px 10px",
-                    cursor: "pointer",
-                  }}
-                  aria-label={`Delete ${song.title}`}
-                >
-                  Delete
-                </button>
-                <button
-                  onClick={() => handleEdit(song)}
-                  css={{
-                    backgroundColor: "#3498db",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "4px",
-                    padding: "5px 10px",
-                    cursor: "pointer",
-                  }}
-                  aria-label={`Edit ${song.title}`}
-                >
-                  Edit
-                </button>
-              </div>
-            </li>
+            <SongItem key={song._id}>
+              {editingSongId === song._id ? (
+                <EditForm song={song} onUpdate={handleUpdate} />
+              ) : (
+                <>
+                  <SongInfo>
+                    <strong>{song.title}</strong> by {song.artist} ({song.genre}
+                    )
+                  </SongInfo>
+                  <div>
+                    <Button
+                      variant="delete"
+                      onClick={() => handleDelete(song._id ?? "")}
+                      aria-label={`Delete ${song.title}`}
+                    >
+                      Delete
+                    </Button>
+                    <Button
+                      variant="edit"
+                      onClick={() => handleEdit(song)}
+                      aria-label={`Edit ${song.title}`}
+                    >
+                      Edit
+                    </Button>
+                  </div>
+                </>
+              )}
+            </SongItem>
           ))}
-        </ul>
+        </SongListContainer>
       )}
-      {editingSong && <EditForm song={editingSong} onUpdate={handleUpdate} />}
-    </div>
+    </Container>
   );
 };
 

@@ -17,6 +17,7 @@ const App = () => {
           <div
             style={{
               padding: theme.spacing.large,
+              paddingTop: 0,
               backgroundColor: theme.colors.background,
             }}
           >
@@ -27,18 +28,6 @@ const App = () => {
             </Routes>
           </div>
         </Router>
-
-        {/* <div
-          style={{
-            padding: theme.spacing.large,
-            backgroundColor: theme.colors.background,
-          }}
-        >
-          <h1 style={{ color: theme.colors.primary }}>Music App</h1>
-          <SongForm />
-          <SongList />
-          <Statistics />
-        </div> */}
       </ThemeProvider>
     </Provider>
   );
