@@ -7,7 +7,7 @@ import store from "./store/store";
 import Statistics from "./components/Statistics";
 import theme from "./theme";
 import Header from "./components/Header";
-import Songs from "./pages/songs";
+import Songs from "./pages/Songs";
 import Footer from "./components/Footer";
 
 const App = () => {
