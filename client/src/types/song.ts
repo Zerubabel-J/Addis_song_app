@@ -6,3 +6,7 @@ export interface Song {
   album?: string;
   genre: string;
 }
+
+export interface VITE_API_URL {
+  VITE_API_URL: string;
+}
