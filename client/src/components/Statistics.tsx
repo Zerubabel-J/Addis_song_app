@@ -114,7 +114,7 @@ const Statistics = () => {
     const fetchStatistics = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/statistics"
+          "https://addis-song-app-1.onrender.com/api/statistics"
         );
         setStatistics(response.data);
         setLoading(false);

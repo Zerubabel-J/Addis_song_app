@@ -32,10 +32,19 @@ function* handleAddSong(action: ReturnType<typeof addSong>) {
   }
 }
 
+// function* handleUpdateSong(action: ReturnType<typeof updateSong>) {
+//   try {
+//     yield call(editSong, action.payload);
+//     yield put(fetchSongsRequest());
+//   } catch (error: any) {
+//     yield put(fetchSongsFailure(error.message));
+//   }
+// }
+
 function* handleUpdateSong(action: ReturnType<typeof updateSong>) {
   try {
     yield call(editSong, action.payload);
-    yield put(fetchSongsRequest());
+    yield put(updateSong(action.payload)); // Update the song in the state directly
   } catch (error: any) {
     yield put(fetchSongsFailure(error.message));
   }

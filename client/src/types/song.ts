@@ -7,6 +7,11 @@ export interface Song {
   genre: string;
 }
 
-export interface VITE_API_URL {
-  VITE_API_URL: string;
+export interface ImportMetaEnv {
+  readonly VITE_API_URL: string;
+  // Add other environment variables here if needed
+}
+
+export interface ImportMeta {
+  readonly env: ImportMetaEnv;
 }
