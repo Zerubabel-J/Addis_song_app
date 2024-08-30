@@ -13,6 +13,10 @@ const FooterContainer = styled.footer`
   align-items: center;
   text-align: center;
   border-top: 1px solid ${({ theme }) => theme.colors.muted};
+  position: relative; /* Ensures the footer is relative to its normal flow */
+  bottom: 0;
+  width: 100%; /* Full width to span across the bottom */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow to differentiate from content */
 `;
 
 const FooterContent = styled.div`

@@ -18,8 +18,11 @@ const schema = z.object({
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  max-width: 90%;
+  justify-content: center;
   gap: ${({ theme }) => theme.spacing.medium};
   margin-bottom: ${({ theme }) => theme.spacing.large};
+  margin-left: 10px;
 
   @media (min-width: 768px) {
     flex-direction: row;

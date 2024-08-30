@@ -1,6 +1,8 @@
 import axios from "axios";
 import { Song } from "../types/song";
 
+// const API_URL = import.meta.env.VITE_API_URL;
+
 const VITE_API_URL = "https://addis-song-app-1.onrender.com/api/songs";
 
 export const fetchSongs = async (): Promise<Song[]> => {
