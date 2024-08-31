@@ -9,9 +9,7 @@ A full-stack music application built with the MERN stack (MongoDB, Express, Reac
 - [Setup](#setup)
   - [Backend Setup](#backend-setup)
   - [Frontend Setup](#frontend-setup)
-- [Usage](#usage)
 - [Deployment](#deployment)
-- [API Endpoints](#api-endpoints)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -54,43 +52,16 @@ A full-stack music application built with the MERN stack (MongoDB, Express, Reac
    Install Dependencies:
    ```
 
-## Installation
+### Frontend Setup
 
-### Backend Setup
+2. **Navigate to the Frontend Directory**:
 
-1. Install the necessary packages:
    ```bash
-   npm install
+   cd Addis_song_app/client
+   Install Dependencies:
    ```
 
-Create a .env File: Create a .env file in the server directory and add your MongoDB connection URI:
-
-2. Create a .env file in the server directory and add your MongoDB connection URI:
-
-   ```MONGO_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<dbname>?retryWrites=true&w=majority
-   PORT=5000
-   ```
-
-3. Start the Server:
-
-   ```npm run dev
-
-   ```
-
-4. Frontend Setup
-   Navigate to the Frontend Directory:
-
-   ```cd ../client
-   npm install
-   ```
-
-5. Start the Development Server:
-
-   ```npm run dev
-
-   ```
-
-6. Deployment
+3. Deployment
    Backend
    Build and Deploy:
    Make sure the .env file on your deployed server has the correct MongoDB URI.
@@ -98,12 +69,7 @@ Create a .env File: Create a .env file in the server directory and add your Mong
    Frontend
    Build and Deploy:
    Build the React application using Vite
-
-   ```npm run build
-
-   ```
-
    Deploy the build directory to Vercel.
 
-7. Contributing
+4. Contributing
    Feel free to fork the repository and submit pull requests. For significant changes, please open an issue first to discuss the proposed changes.
