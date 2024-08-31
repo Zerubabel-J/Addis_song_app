@@ -1,4 +1,4 @@
-// src/types/themeTypes.ts
+
 import "@emotion/react";
 
 declare module "@emotion/react" {
