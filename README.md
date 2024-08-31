@@ -63,23 +63,32 @@ A full-stack music application built with the MERN stack (MongoDB, Express, Reac
    npm install
    ```
 
-npm install
 Create a .env File: Create a .env file in the server directory and add your MongoDB connection URI:
 
 2. Create a .env file in the server directory and add your MongoDB connection URI:
-   MONGO_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<dbname>?retryWrites=true&w=majority
+
+   ```MONGO_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<dbname>?retryWrites=true&w=majority
    PORT=5000
+   ```
 
 3. Start the Server:
-   npm run dev
+
+   ```npm run dev
+
+   ```
 
 4. Frontend Setup
    Navigate to the Frontend Directory:
-   cd ../client
+
+   ```cd ../client
    npm install
+   ```
 
 5. Start the Development Server:
-   npm run dev
+
+   ```npm run dev
+
+   ```
 
 6. Deployment
    Backend
@@ -89,7 +98,11 @@ Create a .env File: Create a .env file in the server directory and add your Mong
    Frontend
    Build and Deploy:
    Build the React application using Vite
-   npm run build
+
+   ```npm run build
+
+   ```
+
    Deploy the build directory to Vercel.
 
 7. Contributing
