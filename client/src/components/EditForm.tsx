@@ -1,17 +1,9 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import styled from "@emotion/styled";
 import { Song } from "../types/song";
-
-const schema = z.object({
-  title: z.string().min(1, { message: "Title is required" }),
-  artist: z.string().min(1, { message: "Artist is required" }),
-  album: z.string().optional(),
-  genre: z.string().min(1, { message: "Genre is required" }),
-});
-
+import { songSchema } from "../validation/songSchema";
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -74,7 +66,7 @@ const EditForm: React.FunctionComponent<EditFormProps> = ({
     formState: { errors },
   } = useForm({
     defaultValues: song,
-    resolver: zodResolver(schema),
+    resolver: zodResolver(songSchema),
   });
 
   const onSubmit: SubmitHandler<Omit<Song, "id">> = (data) => {

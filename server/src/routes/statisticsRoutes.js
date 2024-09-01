@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Song = require("../models/song");
 
+console.log("Songs model:", Song);
 // Get statistics
 router.get("/statistics", async (req, res) => {
   try {

@@ -13,3 +13,9 @@ export interface ImportMetaEnv {
 export interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+export interface SongState {
+  songs: Song[];
+  loading: boolean;
+  error: string | null;
+}

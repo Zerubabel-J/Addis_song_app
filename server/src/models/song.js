@@ -7,6 +7,6 @@ const songSchema = new mongoose.Schema({
   genre: { type: String, required: true },
 });
 
-const Song = mongoose.model("Song", songSchema);
-
+const Song = mongoose.model("Song", songSchema); //creates a model that allows to perform CRUD  operations
+// console.log("Song model created", songSchema);
 module.exports = Song;

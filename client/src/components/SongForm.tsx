@@ -1,19 +1,10 @@
-import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import styled from "@emotion/styled";
 import { useDispatch } from "react-redux";
 import { addSong } from "../features/song/songSlice";
 import { Song } from "../types/song";
-
-const schema = z.object({
-  title: z.string().min(1, { message: "Title is required" }),
-  artist: z.string().min(1, { message: "Artist is required" }),
-  album: z.string().optional(),
-  genre: z.string().min(1, { message: "Genre is required" }),
-});
+import { songSchema } from "../validation/songSchema";
 
 const Form = styled.form`
   display: flex;
@@ -72,13 +63,14 @@ const SongForm = () => {
     reset,
     formState: { errors },
   } = useForm<Song>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(songSchema),
   });
 
   const dispatch = useDispatch();
 
   const onSubmit: SubmitHandler<Song> = (data) => {
     dispatch(addSong(data));
+    console.log(dispatch(addSong(data)));
     reset(); // Clear input fields after submission
   };
 

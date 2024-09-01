@@ -6,5 +6,3 @@ export const songSchema = z.object({
   album: z.string().optional(),
   genre: z.string().min(1, "Genre is required"),
 });
-
-export type SongFormInputs = z.infer<typeof songSchema>;
