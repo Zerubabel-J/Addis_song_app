@@ -15,6 +15,9 @@ app.use(cors());
 connectDB();
 
 // API routes
+app.get("/", (req, res) => {
+  res.send("Hey, from dockerized express server");
+});
 app.use("/api", songRoutes);
 // Add statistics API route
 app.use("/api", statisticsRoutes);
