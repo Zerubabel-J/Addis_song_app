@@ -70,8 +70,7 @@ const SongForm = () => {
 
   const onSubmit: SubmitHandler<Song> = (data) => {
     dispatch(addSong(data));
-    console.log(dispatch(addSong(data)));
-    reset(); // Clear input fields after submission
+    reset();
   };
 
   return (
