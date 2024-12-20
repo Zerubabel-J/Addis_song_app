@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -74,6 +73,11 @@ const Button = styled.button<ButtonProps>`
   }
 `;
 
+const ErrorMessage = styled.p`
+  color: #e74c3c;
+  text-align: center;
+`;
+
 const SongList = () => {
   const dispatch = useDispatch();
   const songs = useSelector((state: RootState) => state.songs.songs);
@@ -103,13 +107,12 @@ const SongList = () => {
 
   return (
     <Container>
+      {error && <ErrorMessage>Error: {error}</ErrorMessage>}
       <Heading>Song List</Heading>
       {loading ? (
         <Loader />
-      ) : error ? (
-        <p css={{ color: "#e74c3c", textAlign: "center" }}>Error: {error}</p>
       ) : songs.length === 0 ? (
-        <p css={{ textAlign: "center" }}>No songs available.</p>
+        <ErrorMessage>No songs available.</ErrorMessage>
       ) : (
         <SongListContainer>
           {songs.map((song: Song) => (
