@@ -10,6 +10,7 @@ import { RootState } from "../store/store";
 import { Song } from "../types/song";
 import EditForm from "./EditForm";
 import styled from "@emotion/styled";
+import Loader from "./Loader";
 
 const Container = styled.div`
   padding: 20px;
@@ -103,45 +104,46 @@ const SongList = () => {
   return (
     <Container>
       <Heading>Song List</Heading>
-      {/* {loading ? (
-        <p css={{ color: "#e74c3c", textAlign: "center" }}>Loading...</p>
+      {loading ? (
+        <Loader />
       ) : error ? (
         <p css={{ color: "#e74c3c", textAlign: "center" }}>Error: {error}</p>
       ) : songs.length === 0 ? (
         <p css={{ textAlign: "center" }}>No songs available.</p>
-      ) : ( */}
-      <SongListContainer>
-        {songs.map((song: Song) => (
-          <SongItem key={song._id}>
-            {editingSongId === song._id ? (
-              <EditForm song={song} onUpdate={handleUpdate} />
-            ) : (
-              <>
-                <SongInfo>
-                  <strong>{song.title}</strong> by {song.artist} ({song.genre})
-                </SongInfo>
-                <div>
-                  <Button
-                    variant="delete"
-                    onClick={() => handleDelete(song._id ?? "")}
-                    aria-label={`Delete ${song.title}`}
-                  >
-                    Delete
-                  </Button>
-                  <Button
-                    variant="edit"
-                    onClick={() => handleEdit(song)}
-                    aria-label={`Edit ${song.title}`}
-                  >
-                    Edit
-                  </Button>
-                </div>
-              </>
-            )}
-          </SongItem>
-        ))}
-      </SongListContainer>
-      {/* )} */}
+      ) : (
+        <SongListContainer>
+          {songs.map((song: Song) => (
+            <SongItem key={song._id}>
+              {editingSongId === song._id ? (
+                <EditForm song={song} onUpdate={handleUpdate} />
+              ) : (
+                <>
+                  <SongInfo>
+                    <strong>{song.title}</strong> by {song.artist} ({song.genre}
+                    )
+                  </SongInfo>
+                  <div>
+                    <Button
+                      variant="delete"
+                      onClick={() => handleDelete(song._id ?? "")}
+                      aria-label={`Delete ${song.title}`}
+                    >
+                      Delete
+                    </Button>
+                    <Button
+                      variant="edit"
+                      onClick={() => handleEdit(song)}
+                      aria-label={`Edit ${song.title}`}
+                    >
+                      Edit
+                    </Button>
+                  </div>
+                </>
+              )}
+            </SongItem>
+          ))}
+        </SongListContainer>
+      )}
     </Container>
   );
 };
